@@ -1,0 +1,15 @@
+@tailwind base; @tailwind components; @tailwind utilities;
+@layer base {
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+  body { @apply bg-bg text-white antialiased; }
+  :focus-visible { outline: 2px solid #00FFFF; outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) { *, ::before, ::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+}
+@layer components {
+  .wrap { @apply mx-auto w-full max-w-page px-5 sm:px-8; }
+  .eyebrow { @apply text-xs font-semibold uppercase tracking-[0.18em] text-cyan; }
+  .h2 { @apply text-3xl font-bold leading-tight tracking-tight sm:text-4xl; }
+  .card { @apply overflow-hidden rounded-2xl border bg-navy/60 transition duration-300 hover:-translate-y-1 hover:border-cyan/40; }
+}
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+.fade-in { animation: rise .35s ease both; }

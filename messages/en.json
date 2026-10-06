@@ -1,0 +1,382 @@
+{
+ "meta": {
+  "title": "Chyweb Digital Agency",
+  "desc": "Modern websites and digital solutions that help businesses grow, stand out, and succeed online."
+ },
+ "nav": {
+  "home": "Home",
+  "services": "Services",
+  "portfolio": "Portfolio",
+  "about": "About",
+  "pricing": "Pricing",
+  "contact": "Contact",
+  "cta": "Start a Project",
+  "menu": "Menu",
+  "lang": "Language"
+ },
+ "hero": {
+  "badge": "Independent Digital Agency",
+  "title": "We turn ideas into powerful digital experiences.",
+  "desc": "Chyweb is a digital agency dedicated to creating modern websites and digital solutions that help businesses grow, stand out, and succeed online.",
+  "cta": "Start a Project",
+  "cta2": "Explore Our Work"
+ },
+ "trust": {
+  "items": [
+   "Custom-built digital solutions",
+   "Responsive-first development",
+   "Transparent communication",
+   "Dedicated project support"
+  ]
+ },
+ "services": {
+  "eyebrow": "Services",
+  "title": "Everything your business needs to grow online.",
+  "desc": "From first design to ongoing support, explained in plain language.",
+  "more": "Discuss this service",
+  "items": {
+   "design": {
+    "t": "Website Design",
+    "d": "Modern interfaces focused on usability, visual identity, and conversion.",
+    "alt": "Monitor showing a modern website design on a dark desk"
+   },
+   "dev": {
+    "t": "Website Development",
+    "d": "Responsive, scalable, and maintainable websites that stay fast as you grow.",
+    "alt": "Multi-monitor workspace with code editors"
+   },
+   "ecom": {
+    "t": "E-commerce Development",
+    "d": "Online stores designed to provide smooth shopping experiences.",
+    "alt": "Online store on a desktop monitor and phone"
+   },
+   "uiux": {
+    "t": "UI/UX Design",
+    "d": "Thoughtful digital experiences based on user needs and clear interaction patterns.",
+    "alt": "Wireframes evolving into finished interface designs"
+   },
+   "redesign": {
+    "t": "Website Redesign",
+    "d": "Transform outdated websites into modern digital experiences.",
+    "alt": "Old wireframe site beside a redesigned modern site"
+   },
+   "maint": {
+    "t": "Website Maintenance",
+    "d": "Ongoing improvements, technical updates, and support.",
+    "alt": "Monitor showing maintenance, security and support"
+   }
+  }
+ },
+ "portfolio": {
+  "eyebrow": "Portfolio",
+  "title": "Selected work.",
+  "intro": "Concept projects created to demonstrate our design and development approach. They are not delivered client work.",
+  "concept": "Concept project",
+  "view": "View project",
+  "back": "All projects",
+  "tech": "Technologies",
+  "notice": "This is a fictional concept project created by Chyweb for demonstration. It is not a delivered client project and any brand names shown are invented.",
+  "items": {
+   "ecom": {
+    "t": "Skincare Store",
+    "c": "E-commerce",
+    "d": "A concept online store with clean product browsing and a mobile-first checkout flow.",
+    "alt": "Concept skincare online store on desktop and mobile"
+   },
+   "corporate": {
+    "t": "Consulting Firm",
+    "c": "Corporate website",
+    "d": "A concept corporate site presenting services, case studies and testimonials with authority.",
+    "alt": "Concept consulting firm website on a monitor"
+   },
+   "fitness": {
+    "t": "Fitness Club",
+    "c": "Fitness website",
+    "d": "A concept fitness site with memberships, classes and a bold dark interface.",
+    "alt": "Concept fitness club website on desktop and mobile"
+   },
+   "realestate": {
+    "t": "Real Estate Listings",
+    "c": "Real estate website",
+    "d": "A concept property site built around large imagery and simple search.",
+    "alt": "Concept real estate website on desktop and mobile"
+   }
+  },
+  "all": "All",
+  "filter": "Filter projects",
+  "related": "More concept projects"
+ },
+ "process": {
+  "eyebrow": "How we work",
+  "title": "A clear path from idea to launch.",
+  "alt": "Four glass cubes showing the project stages",
+  "steps": [
+   {
+    "t": "Discovery & Planning",
+    "d": "Understand your business, objectives, audience, and requirements."
+   },
+   {
+    "t": "Design & Prototyping",
+    "d": "Create the visual direction and define the user experience."
+   },
+   {
+    "t": "Development & Testing",
+    "d": "Transform the approved design into a responsive, functional product."
+   },
+   {
+    "t": "Launch & Support",
+    "d": "Deploy, verify, and provide agreed post-launch assistance."
+   }
+  ]
+ },
+ "cta": {
+  "title": "Have an idea? Let's build something remarkable.",
+  "desc": "Tell us what you're planning. We'll help you turn your idea into a clear digital solution.",
+  "btn": "Let's Discuss Your Project"
+ },
+ "footer": {
+  "desc": "A digital agency creating modern websites and digital solutions for growing businesses.",
+  "explore": "Explore",
+  "privacy": "Privacy Policy",
+  "terms": "Terms and Conditions",
+  "rights": "All rights reserved."
+ },
+ "about": {
+  "title": "A digital agency built around clear communication.",
+  "desc": "Chyweb helps businesses establish, improve, and grow their digital presence through professional websites and digital solutions.",
+  "alt": "Modern dark studio with glass walls",
+  "mono": "Chyweb monogram",
+  "blocks": [
+   {
+    "t": "Our approach",
+    "d": "We start by understanding your goals, then design and build only what serves them."
+   },
+   {
+    "t": "Mission",
+    "d": "To make professional digital experiences accessible to businesses of every size."
+   },
+   {
+    "t": "How we work",
+    "d": "You are involved at every stage, with plain-language updates and no surprises."
+   }
+  ],
+  "draft": "Draft content: team, history and values will be added by the owner."
+ },
+ "pricing": {
+  "title": "Transparent pricing.",
+  "desc": "Costs depend on scope and requirements. Tell us about your project and we will prepare a clear quotation.",
+  "empty": "Pricing packages will appear here once they are published.",
+  "cta": "Request a Quote"
+ },
+ "contact": {
+  "title": "Let's talk about your project.",
+  "desc": "Tell us what you're planning and we'll reply with clear next steps.",
+  "email": "Email us",
+  "wa": "Chat on WhatsApp",
+  "none": "Contact channels have not been configured yet. The project inquiry form arrives in the next development phase.",
+  "phone": "Call us"
+ },
+ "faq": {
+  "title": "Frequently asked questions",
+  "items": [
+   {
+    "q": "What services does Chyweb offer?",
+    "a": "Website design, development, e-commerce, UI/UX design, redesigns and maintenance."
+   },
+   {
+    "q": "How does the process work?",
+    "a": "Discovery and planning, design and prototyping, development and testing, then launch and support."
+   },
+   {
+    "q": "How are projects priced?",
+    "a": "Pricing depends on scope and complexity. We prepare a quotation after understanding your project."
+   },
+   {
+    "q": "Do you work with international clients?",
+    "a": "Yes. We work in English, French and Arabic."
+   }
+  ]
+ },
+ "legal": {
+  "privacy": "Privacy Policy",
+  "terms": "Terms and Conditions",
+  "notice": "Draft placeholder. This text must be written and reviewed by a qualified legal professional before launch."
+ },
+ "why": {
+  "eyebrow": "Why Chyweb",
+  "title": "Built around what your business actually needs.",
+  "items": {
+   "custom": {
+    "t": "Tailored, not templated",
+    "d": "Every site starts from your goals and audience, so it fits your business instead of a generic layout."
+   },
+   "responsive": {
+    "t": "Responsive by default",
+    "d": "Pages are designed for phones first, then scaled up, so visitors get a smooth experience on every screen."
+   },
+   "clear": {
+    "t": "Clear communication",
+    "d": "Plain-language updates and a visible plan at every stage, with no surprises."
+   },
+   "support": {
+    "t": "Support after launch",
+    "d": "A website needs care. We can help with updates, fixes and improvements once it is live."
+   }
+  }
+ },
+ "testimonials": {
+  "eyebrow": "Testimonials",
+  "title": "What clients say.",
+  "demo": "Demonstration content",
+  "empty": "Client feedback will appear here once real, approved testimonials are added. Chyweb does not publish invented reviews."
+ },
+ "svcpage": {
+  "included": "What's included",
+  "approach": "Our approach",
+  "faq": "Common questions",
+  "cta": "Discuss this service",
+  "ctaDesc": "Tell us about your project and we'll suggest the right next step.",
+  "related": "Related concept projects",
+  "back": "All services"
+ },
+ "svc": {
+  "design": {
+   "lead": "A website is often the first impression of your business. We design interfaces that look professional, are easy to use, and guide visitors toward contacting you.",
+   "inc": [
+    "Visual direction aligned with your brand",
+    "Layouts for desktop, tablet and mobile",
+    "Clear page structure and calls to action"
+   ],
+   "q": "Do I need a logo before starting?",
+   "a": "No. If you already have brand assets we use them; if not, we can suggest a simple visual direction."
+  },
+  "dev": {
+   "lead": "We turn approved designs into fast, reliable websites that are easy to maintain and ready to grow with your business.",
+   "inc": [
+    "Responsive, accessible front-end",
+    "Content you can update without code, where agreed",
+    "Testing on common devices and browsers"
+   ],
+   "q": "Will I be able to edit my content?",
+   "a": "Yes, when an editing system is part of the agreed scope. We explain how it works at handover."
+  },
+  "ecom": {
+   "lead": "A good online store makes it simple to find a product and complete a purchase. We build shops focused on a smooth, trustworthy shopping flow.",
+   "inc": [
+    "Product catalogue and cart experience",
+    "Mobile-friendly checkout flow",
+    "Support for the payment and delivery options you choose"
+   ],
+   "q": "Which payment methods can you integrate?",
+   "a": "It depends on your country and provider. We confirm what is possible during planning."
+  },
+  "uiux": {
+   "lead": "Good experiences come from understanding people. We map how visitors move through your site and design clear, simple interactions.",
+   "inc": [
+    "User flows and wireframes",
+    "Interactive prototypes to review before development",
+    "Consistent interface components"
+   ],
+   "q": "Can you improve an existing interface?",
+   "a": "Yes. We can review your current site and recommend focused improvements."
+  },
+  "redesign": {
+   "lead": "If your website feels outdated or hard to use, a redesign can give it a fresh look and better structure while keeping what already works.",
+   "inc": [
+    "Review of your current site",
+    "New design and improved structure",
+    "Careful content migration"
+   ],
+   "q": "Will I lose my search rankings?",
+   "a": "We take care to preserve important pages and addresses, but no agency can guarantee rankings."
+  },
+  "maint": {
+   "lead": "Websites need regular care. We handle updates, fixes and improvements so your site stays secure and up to date.",
+   "inc": [
+    "Technical updates and fixes",
+    "Content and small design changes",
+    "Support when something needs attention"
+   ],
+   "q": "What does maintenance cost?",
+   "a": "It depends on your site and the support you need. Contact us for a quotation."
+  }
+ },
+ "form": {
+  "steps": [
+   "About you",
+   "Your project",
+   "Budget & timeline",
+   "Review & send"
+  ],
+  "step": "Step {n} of {total}",
+  "next": "Continue",
+  "back": "Back",
+  "submit": "Send inquiry",
+  "submitting": "Sending…",
+  "edit": "Edit",
+  "optional": "optional",
+  "choose": "Choose…",
+  "f": {
+   "name": "Full name",
+   "email": "Email address",
+   "phone": "Phone",
+   "company": "Company",
+   "country": "Country",
+   "projectType": "Project type",
+   "service": "Service you need",
+   "description": "Describe your project",
+   "objectives": "Main objectives",
+   "existingUrl": "Existing website address",
+   "budget": "Estimated budget",
+   "timeline": "Expected timeline",
+   "extra": "Anything else we should know?"
+  },
+  "hint": {
+   "description": "What do you want to build or improve? At least 20 characters.",
+   "budget": "This only helps us understand the scope. It is not a price.",
+   "existingUrl": "For example https://example.com"
+  },
+  "pt": {
+   "new": "New website",
+   "redesign": "Redesign of an existing website",
+   "ecommerce": "Online store",
+   "other": "Something else"
+  },
+  "sv": {
+   "unsure": "Not sure yet"
+  },
+  "bd": {
+   "small": "Small project",
+   "medium": "Medium project",
+   "large": "Large project",
+   "discuss": "I'd rather discuss it"
+  },
+  "tl": {
+   "asap": "As soon as possible",
+   "short": "Within 1–3 months",
+   "medium": "Within 3–6 months",
+   "flexible": "Flexible"
+  },
+  "consent": "I agree that Chyweb may use these details to reply to my inquiry.",
+  "privacyLink": "Privacy Policy",
+  "notice": "We only use your details to respond to your inquiry.",
+  "err": {
+   "required": "This field is required.",
+   "email": "Please enter a valid email address.",
+   "short": "Please write at least 20 characters.",
+   "long": "This is too long.",
+   "url": "Please enter a full address starting with http:// or https://.",
+   "consent": "Please confirm to continue.",
+   "server": "We couldn't send your inquiry right now. Please try again, or contact us directly by email or WhatsApp.",
+   "config": "The inquiry system is not available yet. Please contact us directly by email or WhatsApp.",
+   "rate": "Too many attempts. Please try again later."
+  },
+  "ok": {
+   "title": "Thank you. Your inquiry was received.",
+   "ref": "Reference",
+   "sent": "A confirmation email was sent to {email}.",
+   "notSent": "Your inquiry is saved, but we couldn't send a confirmation email. We'll reply to you directly.",
+   "next": "We'll review your project and get back to you with next steps."
+  }
+ }
+}

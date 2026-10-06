@@ -1,0 +1,382 @@
+{
+ "meta": {
+  "title": "Chyweb Digital Agency",
+  "desc": "Des sites web et solutions numériques modernes qui aident les entreprises à se développer et à se démarquer en ligne."
+ },
+ "nav": {
+  "home": "Accueil",
+  "services": "Services",
+  "portfolio": "Réalisations",
+  "about": "À propos",
+  "pricing": "Tarifs",
+  "contact": "Contact",
+  "cta": "Lancer un projet",
+  "menu": "Menu",
+  "lang": "Langue"
+ },
+ "hero": {
+  "badge": "Agence digitale indépendante",
+  "title": "Nous transformons vos idées en expériences digitales puissantes.",
+  "desc": "Chyweb est une agence digitale qui conçoit des sites web et des solutions numériques modernes pour aider les entreprises à se développer, se démarquer et réussir en ligne.",
+  "cta": "Lancer un projet",
+  "cta2": "Découvrir nos réalisations"
+ },
+ "trust": {
+  "items": [
+   "Solutions digitales sur mesure",
+   "Développement responsive d'abord",
+   "Communication transparente",
+   "Accompagnement dédié"
+  ]
+ },
+ "services": {
+  "eyebrow": "Services",
+  "title": "Tout ce dont votre entreprise a besoin pour grandir en ligne.",
+  "desc": "De la conception au suivi, expliqué simplement.",
+  "more": "Parler de ce service",
+  "items": {
+   "design": {
+    "t": "Design de site web",
+    "d": "Des interfaces modernes axées sur la facilité d'usage, l'identité visuelle et la conversion.",
+    "alt": "Écran affichant un design de site web moderne"
+   },
+   "dev": {
+    "t": "Développement web",
+    "d": "Des sites responsives, évolutifs et faciles à maintenir, rapides même quand vous grandissez.",
+    "alt": "Poste de travail multi-écrans avec éditeurs de code"
+   },
+   "ecom": {
+    "t": "Développement e-commerce",
+    "d": "Des boutiques en ligne pensées pour une expérience d'achat fluide.",
+    "alt": "Boutique en ligne sur ordinateur et téléphone"
+   },
+   "uiux": {
+    "t": "Design UI/UX",
+    "d": "Des expériences réfléchies, fondées sur les besoins des utilisateurs.",
+    "alt": "Wireframes devenant des interfaces finalisées"
+   },
+   "redesign": {
+    "t": "Refonte de site web",
+    "d": "Transformez un site dépassé en expérience digitale moderne.",
+    "alt": "Ancien site à côté d'un site refondu"
+   },
+   "maint": {
+    "t": "Maintenance de site web",
+    "d": "Améliorations continues, mises à jour techniques et assistance.",
+    "alt": "Écran affichant maintenance, sécurité et support"
+   }
+  }
+ },
+ "portfolio": {
+  "eyebrow": "Réalisations",
+  "title": "Projets sélectionnés.",
+  "intro": "Des projets conceptuels créés pour illustrer notre approche du design et du développement. Ce ne sont pas des projets clients livrés.",
+  "concept": "Projet conceptuel",
+  "view": "Voir le projet",
+  "back": "Tous les projets",
+  "tech": "Technologies",
+  "notice": "Il s'agit d'un projet conceptuel fictif créé par Chyweb à titre de démonstration. Ce n'est pas un projet client livré et les marques affichées sont inventées.",
+  "items": {
+   "ecom": {
+    "t": "Boutique de soins",
+    "c": "E-commerce",
+    "d": "Une boutique conceptuelle avec navigation produit claire et paiement pensé pour le mobile.",
+    "alt": "Boutique de cosmétiques conceptuelle sur ordinateur et mobile"
+   },
+   "corporate": {
+    "t": "Cabinet de conseil",
+    "c": "Site d'entreprise",
+    "d": "Un site vitrine conceptuel présentant services, études de cas et témoignages.",
+    "alt": "Site conceptuel de cabinet de conseil sur écran"
+   },
+   "fitness": {
+    "t": "Club de fitness",
+    "c": "Site de fitness",
+    "d": "Un site conceptuel avec abonnements, cours et interface sombre affirmée.",
+    "alt": "Site conceptuel de club de fitness sur ordinateur et mobile"
+   },
+   "realestate": {
+    "t": "Annonces immobilières",
+    "c": "Site immobilier",
+    "d": "Un site conceptuel centré sur de grandes images et une recherche simple.",
+    "alt": "Site immobilier conceptuel sur ordinateur et mobile"
+   }
+  },
+  "all": "Tous",
+  "filter": "Filtrer les projets",
+  "related": "Autres projets conceptuels"
+ },
+ "process": {
+  "eyebrow": "Notre méthode",
+  "title": "Un chemin clair de l'idée au lancement.",
+  "alt": "Quatre cubes de verre illustrant les étapes du projet",
+  "steps": [
+   {
+    "t": "Découverte et planification",
+    "d": "Comprendre votre activité, vos objectifs, votre public et vos besoins."
+   },
+   {
+    "t": "Design et prototypage",
+    "d": "Définir la direction visuelle et l'expérience utilisateur."
+   },
+   {
+    "t": "Développement et tests",
+    "d": "Transformer le design validé en produit responsive et fonctionnel."
+   },
+   {
+    "t": "Lancement et suivi",
+    "d": "Mettre en ligne, vérifier et assurer l'assistance convenue après le lancement."
+   }
+  ]
+ },
+ "cta": {
+  "title": "Une idée ? Construisons quelque chose de remarquable.",
+  "desc": "Dites-nous ce que vous préparez. Nous vous aiderons à en faire une solution digitale claire.",
+  "btn": "Discutons de votre projet"
+ },
+ "footer": {
+  "desc": "Une agence digitale qui crée des sites web et des solutions numériques modernes pour les entreprises en croissance.",
+  "explore": "Explorer",
+  "privacy": "Politique de confidentialité",
+  "terms": "Conditions générales",
+  "rights": "Tous droits réservés."
+ },
+ "about": {
+  "title": "Une agence digitale fondée sur une communication claire.",
+  "desc": "Chyweb aide les entreprises à construire, améliorer et développer leur présence en ligne grâce à des sites web et solutions numériques professionnels.",
+  "alt": "Studio moderne aux parois de verre",
+  "mono": "Monogramme Chyweb",
+  "blocks": [
+   {
+    "t": "Notre approche",
+    "d": "Nous comprenons d'abord vos objectifs, puis concevons uniquement ce qui les sert."
+   },
+   {
+    "t": "Mission",
+    "d": "Rendre les expériences digitales professionnelles accessibles aux entreprises de toutes tailles."
+   },
+   {
+    "t": "Notre façon de travailler",
+    "d": "Vous êtes impliqué à chaque étape, avec des échanges simples et sans surprises."
+   }
+  ],
+  "draft": "Contenu provisoire : équipe, histoire et valeurs seront ajoutés par le propriétaire."
+ },
+ "pricing": {
+  "title": "Des tarifs transparents.",
+  "desc": "Le coût dépend du périmètre et des besoins. Présentez-nous votre projet et nous préparerons un devis clair.",
+  "empty": "Les offres tarifaires apparaîtront ici une fois publiées.",
+  "cta": "Demander un devis"
+ },
+ "contact": {
+  "title": "Parlons de votre projet.",
+  "desc": "Dites-nous ce que vous prévoyez et nous vous répondrons avec des étapes claires.",
+  "email": "Nous écrire",
+  "wa": "Discuter sur WhatsApp",
+  "none": "Les canaux de contact ne sont pas encore configurés. Le formulaire de projet arrivera à la prochaine phase.",
+  "phone": "Nous appeler"
+ },
+ "faq": {
+  "title": "Questions fréquentes",
+  "items": [
+   {
+    "q": "Quels services propose Chyweb ?",
+    "a": "Design et développement de sites, e-commerce, design UI/UX, refontes et maintenance."
+   },
+   {
+    "q": "Comment se déroule un projet ?",
+    "a": "Découverte et planification, design et prototypage, développement et tests, puis lancement et suivi."
+   },
+   {
+    "q": "Comment sont fixés les prix ?",
+    "a": "Les prix dépendent du périmètre et de la complexité. Nous établissons un devis après avoir compris votre projet."
+   },
+   {
+    "q": "Travaillez-vous avec des clients internationaux ?",
+    "a": "Oui. Nous travaillons en anglais, en français et en arabe."
+   }
+  ]
+ },
+ "legal": {
+  "privacy": "Politique de confidentialité",
+  "terms": "Conditions générales",
+  "notice": "Texte provisoire. Ce contenu doit être rédigé et validé par un juriste qualifié avant la mise en ligne."
+ },
+ "why": {
+  "eyebrow": "Pourquoi Chyweb",
+  "title": "Conçu autour des vrais besoins de votre entreprise.",
+  "items": {
+   "custom": {
+    "t": "Sur mesure, pas en série",
+    "d": "Chaque site part de vos objectifs et de votre public, pour s'adapter à votre activité plutôt qu'à un modèle générique."
+   },
+   "responsive": {
+    "t": "Responsive par défaut",
+    "d": "Les pages sont pensées d'abord pour le mobile puis adaptées, pour une expérience fluide sur tous les écrans."
+   },
+   "clear": {
+    "t": "Communication claire",
+    "d": "Des points en langage simple et un plan visible à chaque étape, sans surprises."
+   },
+   "support": {
+    "t": "Suivi après le lancement",
+    "d": "Un site demande des soins. Nous aidons pour les mises à jour, corrections et améliorations une fois en ligne."
+   }
+  }
+ },
+ "testimonials": {
+  "eyebrow": "Témoignages",
+  "title": "Ce que disent nos clients.",
+  "demo": "Contenu de démonstration",
+  "empty": "Les retours clients apparaîtront ici lorsque de vrais témoignages approuvés seront ajoutés. Chyweb ne publie pas d'avis inventés."
+ },
+ "svcpage": {
+  "included": "Ce qui est inclus",
+  "approach": "Notre approche",
+  "faq": "Questions courantes",
+  "cta": "Parler de ce service",
+  "ctaDesc": "Parlez-nous de votre projet et nous vous proposerons la prochaine étape.",
+  "related": "Projets conceptuels liés",
+  "back": "Tous les services"
+ },
+ "svc": {
+  "design": {
+   "lead": "Votre site est souvent la première impression de votre activité. Nous concevons des interfaces professionnelles, faciles à utiliser, qui incitent à vous contacter.",
+   "inc": [
+    "Direction visuelle alignée sur votre marque",
+    "Maquettes pour ordinateur, tablette et mobile",
+    "Structure claire et appels à l'action"
+   ],
+   "q": "Ai-je besoin d'un logo pour commencer ?",
+   "a": "Non. Si vous avez déjà une identité nous l'utilisons, sinon nous proposons une direction visuelle simple."
+  },
+  "dev": {
+   "lead": "Nous transformons les maquettes validées en sites rapides et fiables, faciles à maintenir et prêts à évoluer avec votre activité.",
+   "inc": [
+    "Interface responsive et accessible",
+    "Contenu modifiable sans code, si convenu",
+    "Tests sur les appareils et navigateurs courants"
+   ],
+   "q": "Pourrai-je modifier mon contenu ?",
+   "a": "Oui, si un système d'édition fait partie du périmètre convenu. Nous l'expliquons à la livraison."
+  },
+  "ecom": {
+   "lead": "Une bonne boutique facilite la recherche d'un produit et l'achat. Nous créons des boutiques centrées sur un parcours fluide et rassurant.",
+   "inc": [
+    "Catalogue produits et panier",
+    "Parcours de paiement adapté au mobile",
+    "Prise en charge des moyens de paiement et de livraison choisis"
+   ],
+   "q": "Quels moyens de paiement pouvez-vous intégrer ?",
+   "a": "Cela dépend de votre pays et de votre prestataire. Nous le confirmons lors de la planification."
+  },
+  "uiux": {
+   "lead": "De bonnes expériences naissent de la compréhension des utilisateurs. Nous cartographions leur parcours et concevons des interactions simples et claires.",
+   "inc": [
+    "Parcours utilisateur et wireframes",
+    "Prototypes interactifs à valider avant le développement",
+    "Composants d'interface cohérents"
+   ],
+   "q": "Pouvez-vous améliorer une interface existante ?",
+   "a": "Oui. Nous analysons votre site actuel et recommandons des améliorations ciblées."
+  },
+  "redesign": {
+   "lead": "Si votre site paraît daté ou difficile à utiliser, une refonte lui donne un nouveau look et une meilleure structure tout en conservant ce qui fonctionne.",
+   "inc": [
+    "Analyse de votre site actuel",
+    "Nouveau design et structure améliorée",
+    "Migration soignée du contenu"
+   ],
+   "q": "Vais-je perdre mon référencement ?",
+   "a": "Nous préservons les pages et adresses importantes, mais aucune agence ne peut garantir un classement."
+  },
+  "maint": {
+   "lead": "Un site a besoin de soins réguliers. Nous gérons mises à jour, corrections et améliorations pour qu'il reste sûr et à jour.",
+   "inc": [
+    "Mises à jour techniques et corrections",
+    "Modifications de contenu et de design",
+    "Assistance en cas de besoin"
+   ],
+   "q": "Combien coûte la maintenance ?",
+   "a": "Cela dépend de votre site et du suivi souhaité. Contactez-nous pour un devis."
+  }
+ },
+ "form": {
+  "steps": [
+   "Vos coordonnées",
+   "Votre projet",
+   "Budget et délais",
+   "Vérifier et envoyer"
+  ],
+  "step": "Étape {n} sur {total}",
+  "next": "Continuer",
+  "back": "Retour",
+  "submit": "Envoyer la demande",
+  "submitting": "Envoi…",
+  "edit": "Modifier",
+  "optional": "facultatif",
+  "choose": "Choisir…",
+  "f": {
+   "name": "Nom complet",
+   "email": "Adresse e-mail",
+   "phone": "Téléphone",
+   "company": "Entreprise",
+   "country": "Pays",
+   "projectType": "Type de projet",
+   "service": "Service souhaité",
+   "description": "Décrivez votre projet",
+   "objectives": "Objectifs principaux",
+   "existingUrl": "Adresse du site existant",
+   "budget": "Budget estimé",
+   "timeline": "Délai souhaité",
+   "extra": "Autre chose à nous dire ?"
+  },
+  "hint": {
+   "description": "Que souhaitez-vous créer ou améliorer ? Au moins 20 caractères.",
+   "budget": "Cela nous aide seulement à cerner le périmètre. Ce n'est pas un prix.",
+   "existingUrl": "Par exemple https://exemple.com"
+  },
+  "pt": {
+   "new": "Nouveau site web",
+   "redesign": "Refonte d'un site existant",
+   "ecommerce": "Boutique en ligne",
+   "other": "Autre chose"
+  },
+  "sv": {
+   "unsure": "Je ne sais pas encore"
+  },
+  "bd": {
+   "small": "Petit projet",
+   "medium": "Projet moyen",
+   "large": "Grand projet",
+   "discuss": "Je préfère en discuter"
+  },
+  "tl": {
+   "asap": "Dès que possible",
+   "short": "Dans 1 à 3 mois",
+   "medium": "Dans 3 à 6 mois",
+   "flexible": "Flexible"
+  },
+  "consent": "J'accepte que Chyweb utilise ces informations pour répondre à ma demande.",
+  "privacyLink": "Politique de confidentialité",
+  "notice": "Nous utilisons vos informations uniquement pour répondre à votre demande.",
+  "err": {
+   "required": "Ce champ est obligatoire.",
+   "email": "Veuillez saisir une adresse e-mail valide.",
+   "short": "Veuillez écrire au moins 20 caractères.",
+   "long": "Ce texte est trop long.",
+   "url": "Veuillez saisir une adresse complète commençant par http:// ou https://.",
+   "consent": "Veuillez confirmer pour continuer.",
+   "server": "Nous n'avons pas pu envoyer votre demande. Réessayez ou contactez-nous directement par e-mail ou WhatsApp.",
+   "config": "Le système de demande n'est pas encore disponible. Contactez-nous directement par e-mail ou WhatsApp.",
+   "rate": "Trop de tentatives. Veuillez réessayer plus tard."
+  },
+  "ok": {
+   "title": "Merci. Votre demande a bien été reçue.",
+   "ref": "Référence",
+   "sent": "Un e-mail de confirmation a été envoyé à {email}.",
+   "notSent": "Votre demande est enregistrée, mais l'e-mail de confirmation n'a pas pu être envoyé. Nous vous répondrons directement.",
+   "next": "Nous étudierons votre projet et reviendrons vers vous avec les prochaines étapes."
+  }
+ }
+}
