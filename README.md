@@ -24,6 +24,24 @@ Next.js 14 (App Router) · TypeScript · Tailwind · next-intl (en / fr / ar, RT
 3. **Resend**: create an account at resend.com, verify your sending domain, create an API key. Set `RESEND_API_KEY` and `EMAIL_FROM` (an address on the verified domain). `ADMIN_EMAIL` (or `NEXT_PUBLIC_CONTACT_EMAIL`) receives the notifications.
 4. **Test**: submit the form on `/en/contact`. Check the row in Supabase (Table Editor -> inquiries; `admin_email_sent` / `client_email_sent` show delivery) and your inbox. If keys are missing the API answers 503 and the form shows an honest "not available" message; if only email is missing, the inquiry is still saved and the success screen says no confirmation email was sent.
 
+
+## Verify your real Supabase project (run this yourself)
+The script never prints keys, is read-only by default, and never deletes anything.
+
+    # keys are read from .env.local (NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY)
+    npm run verify:supabase
+
+Optional extras:
+- Admin check: set `VERIFY_ADMIN_EMAIL` and `VERIFY_ADMIN_PASSWORD` **in your terminal session only** (e.g. `export VERIFY_ADMIN_EMAIL=...`), then run the command. Do not put the password in a committed file.
+- `npm run verify:supabase -- --write-test` creates ONE labelled test inquiry (the script never deletes it; remove it in the Supabase Table Editor afterwards).
+
+What it checks: all 12 tables and the columns the app uses; the `media` bucket settings; that visitors can read only published content; that visitors can NOT read inquiries/notes/profiles/activity/media metadata and can NOT write; that the database itself rejects invalid inquiries; and (optionally) admin sign-in and authorization. It ends with `RESULT: PASS` or `RESULT: FAIL` and lists every failing check.
+
+## Which Supabase key goes where
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`: the publishable (`sb_publishable_...`) or legacy `anon` key. Public by design.
+- `SUPABASE_SERVICE_ROLE_KEY`: the **secret** key (`sb_secret_...`) or legacy `service_role` key. Server only. The server helper supports both formats.
+- `NEXT_PUBLIC_*` values are baked in when the site is **built**. After changing one, redeploy.
+
 ## First administrator (for the upcoming admin phase)
 Supabase -> Authentication -> Users -> Add user (email + password; no public sign-up exists). Then in the SQL Editor:
 `insert into profiles (id, email, name, role) select id, email, 'Owner', 'admin' from auth.users where email = 'you@example.com';`
