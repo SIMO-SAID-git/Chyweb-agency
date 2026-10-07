@@ -1,8 +1,8 @@
-import { pageMeta } from '@/lib/seo';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { PageHeader } from '@/components/Cards';
 import ProjectGrid from '@/components/ProjectGrid';
-import { projects } from '@/content/site';
+import { pageMeta } from '@/lib/seo';
+import { getProjects } from '@/lib/content';
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const a = await getTranslations({ locale, namespace: 'nav' });
@@ -12,6 +12,7 @@ export async function generateMetadata({ params: { locale } }: { params: { local
 export default async function Portfolio({ params: { locale } }: { params: { locale: string } }) {
   setRequestLocale(locale);
   const p = await getTranslations('portfolio');
+  const projects = await getProjects(locale);
   return (
     <>
       <PageHeader eyebrow={p('eyebrow')} title={p('title')} desc={p('intro')} />

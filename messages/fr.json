@@ -378,5 +378,8 @@
    "notSent": "Votre demande est enregistrée, mais l'e-mail de confirmation n'a pas pu être envoyé. Nous vous répondrons directement.",
    "next": "Nous étudierons votre projet et reviendrons vers vous avec les prochaines étapes."
   }
+ },
+ "content": {
+  "empty": "Rien à afficher pour le moment."
  }
 }

@@ -378,5 +378,8 @@
    "notSent": "Your inquiry is saved, but we couldn't send a confirmation email. We'll reply to you directly.",
    "next": "We'll review your project and get back to you with next steps."
   }
+ },
+ "content": {
+  "empty": "Nothing to show yet."
  }
 }

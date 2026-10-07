@@ -1,10 +1,12 @@
 import type { MetadataRoute } from 'next';
 import { routing } from '@/i18n/routing';
-import { projects, services } from '@/content/site';
+import { getProjects, getServices } from '@/lib/content';
 const base = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-const paths = ['', '/services', '/portfolio', '/about', '/pricing', '/contact', '/faq', '/privacy-policy', '/terms',
-  ...services.map((s) => `/services/${s.slug}`), ...projects.map((p) => `/portfolio/${p.slug}`)];
-export default function sitemap(): MetadataRoute.Sitemap {
+export const revalidate = 3600; // published content only; the CMS will also revalidate the 'content' tag
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [services, projects] = await Promise.all([getServices('en'), getProjects('en')]);
+  const paths = ['', '/services', '/portfolio', '/about', '/pricing', '/contact', '/faq', '/privacy-policy', '/terms',
+    ...services.map((s) => `/services/${s.slug}`), ...projects.map((p) => `/portfolio/${p.slug}`)];
   return paths.flatMap((p) => routing.locales.map((l) => ({
     url: `${base}/${l}${p}`,
     alternates: { languages: Object.fromEntries(routing.locales.map((x) => [x, `${base}/${x}${p}`])) },

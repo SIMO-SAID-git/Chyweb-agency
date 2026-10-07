@@ -4,7 +4,7 @@ import Button, { Arrow } from '@/components/Button';
 import { ProjectCard, ServiceCard } from '@/components/Cards';
 import Testimonials from '@/components/Testimonials';
 import { pageMeta } from '@/lib/seo';
-import { projects, services } from '@/content/site';
+import { getProjects, getServices } from '@/lib/content';
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: 'meta' });
@@ -21,6 +21,8 @@ export default async function Home({ params: { locale } }: { params: { locale: s
   const pr = await getTranslations('process');
   const c = await getTranslations('cta');
   const w = await getTranslations('why');
+  const e = await getTranslations('content');
+  const [services, projects] = await Promise.all([getServices(locale), getProjects(locale)]);
   const steps = pr.raw('steps') as { t: string; d: string }[];
   return (
     <>
@@ -50,7 +52,8 @@ export default async function Home({ params: { locale } }: { params: { locale: s
         <p className="eyebrow">{s('eyebrow')}</p>
         <h2 className="h2 mt-3 max-w-2xl">{s('title')}</h2>
         <p className="mt-4 max-w-xl text-muted">{s('desc')}</p>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{services.map((x) => <ServiceCard key={x.key} s={x} />)}</div>
+        {services.length === 0 && <p className="mt-12 rounded-2xl border border-dashed p-8 text-muted" role="note">{e('empty')}</p>}
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{services.map((x) => <ServiceCard key={x.slug} s={x} />)}</div>
       </section>
 
       <section className="wrap pt-24">
@@ -71,6 +74,7 @@ export default async function Home({ params: { locale } }: { params: { locale: s
         <p className="eyebrow">{p('eyebrow')}</p>
         <h2 className="h2 mt-3">{p('title')}</h2>
         <p className="mt-4 max-w-2xl text-muted">{p('intro')}</p>
+        {projects.length === 0 && <p className="mt-12 rounded-2xl border border-dashed p-8 text-muted" role="note">{e('empty')}</p>}
         <div className="mt-12 grid gap-6 md:grid-cols-2">{projects.map((x) => <ProjectCard key={x.slug} p={x} />)}</div>
       </section>
 
@@ -91,7 +95,7 @@ export default async function Home({ params: { locale } }: { params: { locale: s
         </ol>
       </section>
 
-      <Testimonials />
+      <Testimonials locale={locale} />
 
       <section className="relative isolate mt-24 overflow-hidden">
         <Image src="/images/cta.jpg" alt="" fill sizes="100vw" className="-z-20 object-cover object-right rtl:-scale-x-100" />

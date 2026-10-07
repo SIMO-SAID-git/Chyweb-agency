@@ -9,7 +9,7 @@ Next.js 14 (App Router) · TypeScript · Tailwind · next-intl (en / fr / ar, RT
 | Multi-step inquiry form + `/api/inquiries` (validation, spam checks, DB insert, emails) | Done; tested against a local mock of Supabase/Resend. **Not yet tested against real Supabase/Resend.** |
 | SQL schema + RLS + storage policies (`supabase/migrations/0001_init.sql`) | Written, syntax-checked; **not yet applied to a real database** |
 | Admin login, dashboard, CMS (projects, services, testimonials, inquiries, media) | **Not built** |
-| Public pages reading content from Supabase | **Not built** (pages still use `src/content/site.ts` + `messages/*.json`) |
+| Public pages read services / projects / testimonials from Supabase (Stage 2) | Built and tested against real Postgres + PostgREST. **Not yet run against your real Supabase project** (see "Stage 2 setup") |
 
 ## Run locally
     npm install
@@ -41,6 +41,35 @@ What it checks: all 12 tables and the columns the app uses; the `media` bucket s
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: the publishable (`sb_publishable_...`) or legacy `anon` key. Public by design.
 - `SUPABASE_SERVICE_ROLE_KEY`: the **secret** key (`sb_secret_...`) or legacy `service_role` key. Server only. The server helper supports both formats.
 - `NEXT_PUBLIC_*` values are baked in when the site is **built**. After changing one, redeploy.
+
+
+## Stage 2: public content from Supabase
+**What is database-driven:** services (+ their FAQs and related projects), projects, testimonials. **What stays in `messages/*.json`:** interface text (menus, buttons, form labels, section headings, About/Pricing/FAQ/legal copy).
+
+### One-time setup on your Supabase project (in this order)
+1. SQL Editor: run `supabase/migrations/0002_content_import_keys.sql` (additive; adds one column + one index; safe to repeat).
+2. Terminal (needs `.env.local` with the URL + keys): `npm run import:content` is a **dry run** and writes nothing: it lists exactly what would be created.
+3. If you are happy: `npm run import:content -- --apply`. It imports 4 concept projects, 6 services, 6 service FAQs and 5 service-to-project links, in English, French and Arabic. No testimonials are imported (none exist).
+4. `npm run verify:supabase` (section F checks the imported content and that visitors see only published rows).
+5. `npm run build && npm start`, then browse the site. NOTE: the build now **needs your Supabase project to be reachable** and fails clearly otherwise.
+
+The importer only inserts. Rows that already exist (matched by slug) are skipped and never overwritten, so edits you make later in the CMS survive any re-run. It never deletes anything.
+
+### Rules the site follows
+- Visitors see only `published = true` rows (and testimonials that are approved AND published). This is enforced by the database (RLS), not by the website code.
+- Language: the requested language, or English for any field that has no translation yet. Never another language. (Testimonials are shown in the language they were written in.)
+- Production never shows static/fake content if the database fails. Failed reads are logged as `[content] Supabase read failed ...`; already-cached pages keep serving the last good version; uncached pages return an error; a build with the database unreachable fails. Static content is a **development-only** fallback (clearly logged).
+- Missing config in production (`NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY`) fails the build with a clear message.
+
+### Caching and how updates reach visitors
+- Content is cached by Next.js for `CONTENT_REVALIDATE_SECONDS` (default 60) and refreshed in the background. Pages and data are cached in two layers, so a change can take up to about 2-3 times that window to appear everywhere on its own.
+- **Stage 3 (admin CMS)** will make this instant: after every save the CMS calls `revalidateTag('content')` plus `revalidatePath(...)` for the item's pages in all three languages. Both are needed: tests showed `revalidatePath` is what clears a page that was previously cached as a 404 (for example a project that was unpublished and then re-published); time-based refresh never revives a cached 404.
+- New projects/services published after the last deployment are served on demand (no redeploy needed). Unpublished or unknown slugs return a real HTTP 404.
+- The branded full-page loading screen (`loading.tsx`) was removed on purpose: it made unknown/unpublished pages return HTTP 200 ("soft 404") instead of 404, which hurts SEO. Pages are cached, so users rarely see a loading state anyway.
+- `NEXT_PUBLIC_*` variables are fixed at build time: after changing one, redeploy.
+
+### Not part of Stage 2
+Admin dashboard, image uploads (images still come from `/public/images`; the Supabase `media` bucket is ready for Stage 3), Resend verification, Vercel/domain, Upstash.
 
 ## First administrator (for the upcoming admin phase)
 Supabase -> Authentication -> Users -> Add user (email + password; no public sign-up exists). Then in the SQL Editor:

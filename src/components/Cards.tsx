@@ -2,33 +2,33 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { Arrow } from './Button';
-import type { services, projects } from '@/content/site';
+import type { Project, Service } from '@/content/types';
 const sizes = '(min-width:1024px) 380px, (min-width:640px) 50vw, 100vw';
-export function ServiceCard({ s }: { s: (typeof services)[number] }) {
+export function ServiceCard({ s }: { s: Service }) {
   const t = useTranslations('services');
   return (
     <article className="card flex flex-col">
-      <div className="relative aspect-[4/3]"><Image src={s.img} alt={t(`items.${s.key}.alt`)} fill sizes={sizes} className="object-cover" /></div>
+      {s.image && <div className="relative aspect-[4/3]"><Image src={s.image} alt={s.alt} fill sizes={sizes} className="object-cover" /></div>}
       <div className="flex flex-1 flex-col p-6">
-        <h3 className="text-lg font-semibold">{t(`items.${s.key}.t`)}</h3>
-        <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{t(`items.${s.key}.d`)}</p>
+        <h3 className="text-lg font-semibold">{s.title}</h3>
+        <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{s.description}</p>
         <Link href={`/services/${s.slug}`} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-cyan">{t('more')} <Arrow /></Link>
       </div>
     </article>
   );
 }
-export function ProjectCard({ p }: { p: (typeof projects)[number] }) {
+export function ProjectCard({ p }: { p: Project }) {
   const t = useTranslations('portfolio');
   return (
     <Link href={`/portfolio/${p.slug}`} className="card group block">
       <div className="relative aspect-video">
-        <Image src={p.img} alt={t(`items.${p.key}.alt`)} fill sizes="(min-width:768px) 600px, 100vw" className="object-cover transition duration-500 group-hover:scale-[1.03]" />
-        <span className="absolute start-3 top-3 rounded-full bg-navy/90 px-3 py-1 text-xs font-medium text-cyan">{t('concept')}</span>
+        {p.image && <Image src={p.image} alt={p.alt} fill sizes="(min-width:768px) 600px, 100vw" className="object-cover transition duration-500 group-hover:scale-[1.03]" />}
+        {p.isConcept && <span className="absolute start-3 top-3 rounded-full bg-navy/90 px-3 py-1 text-xs font-medium text-cyan">{t('concept')}</span>}
       </div>
       <div className="p-6">
-        <p className="eyebrow">{t(`items.${p.key}.c`)}</p>
-        <h3 className="mt-2 text-xl font-semibold">{t(`items.${p.key}.t`)}</h3>
-        <p className="mt-2 text-sm text-muted">{t(`items.${p.key}.d`)}</p>
+        <p className="eyebrow">{p.categoryLabel}</p>
+        <h3 className="mt-2 text-xl font-semibold">{p.title}</h3>
+        <p className="mt-2 text-sm text-muted">{p.description}</p>
         <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-cyan">{t('view')} <Arrow /></span>
       </div>
     </Link>

@@ -100,5 +100,19 @@ else {
     await req('/auth/v1/logout', { token, method: 'POST' });
   }
 }
+
+console.log('\n== F. Imported public content (Stage 2)');
+const has3 = (o) => ['en', 'fr', 'ar'].every((l) => o?.[l]);
+for (const [t, cols, label] of [['services', 'slug,title,description', 'services'], ['projects', 'slug,title,description,category_label', 'projects']]) {
+  const r = await req(`/rest/v1/${t}?select=${cols}&published=eq.true`);
+  if (r.status !== 200 || !Array.isArray(r.json)) { fail(`cannot read published ${label}: HTTP ${r.status}`); continue; }
+  if (!r.json.length) { skip(`no published ${label} yet: run "npm run import:content" (dry run), then "npm run import:content -- --apply"`); continue; }
+  pass(`${r.json.length} published ${label} are visible to visitors`);
+  const bad = r.json.filter((x) => !has3(x.title) || !has3(x.description) || (x.category_label !== undefined && !has3(x.category_label))).map((x) => x.slug);
+  bad.length ? fail(`${label} missing an EN/FR/AR translation: ${bad.join(', ')}`) : pass(`every published ${label.slice(0, -1)} has English, French and Arabic text`);
+}
+{ const r = await req('/rest/v1/testimonials?select=approved,published'); r.status === 200 && Array.isArray(r.json) && r.json.every((x) => x.approved && x.published)
+  ? pass(`${r.json.length} testimonial(s) publicly visible, all approved and published`) : fail('visitors can see testimonials that are not approved+published'); }
+
 console.log(`\n${fails ? 'RESULT: FAIL' : 'RESULT: PASS'}  (${passes} passed, ${fails} failed)`);
 process.exit(fails ? 1 : 0);

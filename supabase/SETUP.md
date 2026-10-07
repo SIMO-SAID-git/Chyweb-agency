@@ -14,6 +14,9 @@ The application is **not connected yet**. Do these steps, then confirm so Stage 
 2. Open `supabase/migrations/0001_init.sql` from the project, copy **all** of it, paste, click **Run**.
 3. Expected: "Success. No rows returned". It runs in one transaction, so a failure applies nothing; you can fix and re-run. It is safe to run twice. It never deletes data.
 
+### 3b. (Stage 2) Run the second migration
+SQL Editor -> new query -> paste `supabase/migrations/0002_content_import_keys.sql` -> Run. Then follow "Stage 2" in the README to import your content.
+
 ## 4. Create your admin login, then make it an admin
 1. **Authentication -> Users -> Add user -> Create new user**: enter your email + a strong password, tick **Auto Confirm User**.
 2. SQL Editor -> new query: paste `supabase/first-admin.sql`, replace `YOUR-ADMIN-EMAIL@example.com` with that email, **Run**. Expected: "1 row affected".

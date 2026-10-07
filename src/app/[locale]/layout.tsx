@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { NextIntlClientProvider } from 'next-intl';
+import { NextIntlClientProvider, type AbstractIntlMessages } from 'next-intl';
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
@@ -22,7 +22,11 @@ const orgLd = { '@context': 'https://schema.org', '@type': 'Organization', name:
 export default async function LocaleLayout({ children, params: { locale } }: Props) {
   if (!(routing.locales as readonly string[]).includes(locale)) notFound();
   setRequestLocale(locale);
-  const messages = await getMessages();
+  // Send the browser ONLY the namespaces client components use (header, form, filters). Business content comes from Supabase and
+  // must not ship in a static bundle (otherwise unpublished items' old titles would still be visible in the page payload).
+  const all = (await getMessages()) as Record<string, AbstractIntlMessages>;
+  const { items: _projectItems, ...portfolio } = all.portfolio; void _projectItems;
+  const messages: AbstractIntlMessages = { nav: all.nav, form: all.form, services: { items: Object.fromEntries(Object.entries(all.services.items as Record<string, Record<string, string>>).map(([k, v]) => [k, { t: v.t }])) }, portfolio, content: all.content };
   return (
     <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
       <body>
