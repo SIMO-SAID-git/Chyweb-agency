@@ -17,6 +17,9 @@ The application is **not connected yet**. Do these steps, then confirm so Stage 
 ### 3b. (Stage 2) Run the second migration
 SQL Editor -> new query -> paste `supabase/migrations/0002_content_import_keys.sql` -> Run. Then follow "Stage 2" in the README to import your content.
 
+### 3c. (Stage 3) Run the third migration
+SQL Editor -> new query -> paste `supabase/migrations/0003_admin_cms.sql` -> Run.
+
 ## 4. Create your admin login, then make it an admin
 1. **Authentication -> Users -> Add user -> Create new user**: enter your email + a strong password, tick **Auto Confirm User**.
 2. SQL Editor -> new query: paste `supabase/first-admin.sql`, replace `YOUR-ADMIN-EMAIL@example.com` with that email, **Run**. Expected: "1 row affected".

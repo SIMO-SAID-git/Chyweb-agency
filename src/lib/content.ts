@@ -71,3 +71,9 @@ export async function getTestimonials(loc: string): Promise<PublicTestimonial[]>
     return lang ? [{ id: r.id, name: r.client_name, role: r.client_role ?? '', text: r.feedback[lang], lang, rating: r.rating ?? undefined, demo: r.is_demo === true }] : [];
   });
 }
+
+// General FAQs (no service) managed in the CMS. If none are published the FAQ page shows its original default questions.
+export async function getGeneralFaqs(loc: string): Promise<{ q: string; a: string }[]> {
+  const rows = await rest('faqs?select=question,answer,sort_order&service_id=is.null&order=sort_order.asc', 'faqs');
+  return (rows ?? []).map((r) => ({ q: pick(r.question, loc), a: pick(r.answer, loc) }));
+}

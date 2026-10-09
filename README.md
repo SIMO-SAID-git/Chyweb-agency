@@ -8,7 +8,7 @@ Next.js 14 (App Router) · TypeScript · Tailwind · next-intl (en / fr / ar, RT
 | Public site, 3 languages, service pages, portfolio filter, SEO | Done, tested |
 | Multi-step inquiry form + `/api/inquiries` (validation, spam checks, DB insert, emails) | Done; tested against a local mock of Supabase/Resend. **Not yet tested against real Supabase/Resend.** |
 | SQL schema + RLS + storage policies (`supabase/migrations/0001_init.sql`) | Written, syntax-checked; **not yet applied to a real database** |
-| Admin login, dashboard, CMS (projects, services, testimonials, inquiries, media) | **Not built** |
+| Admin login, dashboard, CMS (services, projects, testimonials, FAQs, inquiries, media) (Stage 3) | Built and tested locally (see "Stage 3"). **Not yet run against your real Supabase project**: run `npm run verify:admin` |
 | Public pages read services / projects / testimonials from Supabase (Stage 2) | Built and tested against real Postgres + PostgREST. **Not yet run against your real Supabase project** (see "Stage 2 setup") |
 
 ## Run locally
@@ -70,6 +70,51 @@ The importer only inserts. Rows that already exist (matched by slug) are skipped
 
 ### Not part of Stage 2
 Admin dashboard, image uploads (images still come from `/public/images`; the Supabase `media` bucket is ready for Stage 3), Resend verification, Vercel/domain, Upstash.
+
+
+## Stage 3: the admin CMS (`/admin`)
+Sign in at **`https://YOUR-DOMAIN/admin/login`** (never linked from the public site; `noindex`, `no-store`, blocked in robots.txt).
+
+### One-time setup
+1. SQL Editor: run `supabase/migrations/0003_admin_cms.sql` (adds the `inquiries.read_at` column and lets admins change only `status` and `read_at`; no policy is weakened; safe to repeat).
+2. Make sure your admin exists: Authentication -> Users -> Add user, then run `supabase/first-admin.sql` (see below). There is no sign-up page; nobody can register themselves.
+3. Optional editor account (can manage content and media, but can NOT see inquiries): create the Auth user, then in the SQL Editor:
+   `insert into public.profiles (id, email, name, role) select id, email, 'Editor', 'editor' from auth.users where email = 'editor@example.com';`
+4. No new environment variables are needed. The admin uses the same public URL + publishable key and each person's own login; it never uses the service-role key.
+5. Verify against YOUR project (read-only by default):
+   `export VERIFY_ADMIN_EMAIL=... VERIFY_ADMIN_PASSWORD=...` then `npm run verify:admin`.
+   Add `-- --write` to also test create/publish/unpublish/approve/upload with temporary records named `zz-verify-...` that the script deletes itself (your real content is never touched). Optional: `VERIFY_EDITOR_*` and `VERIFY_PLAIN_*` (an Auth user with no profile) test those roles.
+
+### What you can manage
+| Area | Can do |
+|---|---|
+| Services | create, edit, order, publish/unpublish, delete (only when unpublished), EN/FR/AR text, included features, image, related projects |
+| Projects | create, edit, order, publish/unpublish, delete (only when unpublished), category, technologies, image, concept flag, related services, EN/FR/AR text |
+| Testimonials | create, edit, approve / reject, publish / hide, delete. Public only when **approved AND published**. Shown in the language it was written in. No fake ones exist or are created. |
+| FAQs | create, edit, order, publish/unpublish, delete. Linked to a service (shown on its page) or general (shown on /faq once one is published; otherwise the original questions show) |
+| Media | upload JPEG/PNG/WebP/AVIF up to 5 MB (browser -> Supabase Storage via a short-lived signed URL), delete only if nothing uses the file |
+| Inquiries (admin role only) | list, search (name/email/reference), filter (status, service, read/unread, date), open, status (New, Contacted, In discussion, Proposal sent, Accepted, Rejected, Archived), private notes, mark unread, delete |
+| Dashboard | real counts, recent inquiries, recent activity (from `activity_log`, filled by database triggers; stores labels only, never inquiry details) |
+
+Language tabs (English / Français / العربية) are on every multilingual field. A dot on a tab means that language is empty: the website then shows the **English** text for that field (never another language). Editing one language never changes the others.
+
+### How a change reaches the public website
+Every save/publish/unpublish/delete calls `revalidateContent()` (`src/lib/admin/revalidate.ts`): it invalidates the `content` data cache **and** re-renders the affected pages in all three languages (home, services, portfolio, FAQ, the item's own pages, sitemap). No redeploy is needed. Measured behaviour: right after a change, the very first visit to a page may still be served the previous version for a moment while Next.js rebuilds it in the background (about 0.3 s in tests); the next visit is the new version. Public content is also refreshed automatically every `CONTENT_REVALIDATE_SECONDS` (default 60).
+
+### Security model
+- Login = Supabase Auth (email + password). Tokens are stored only in **httpOnly cookies** scoped to `/admin`; the browser's JavaScript never sees them. Sessions renew automatically; logout revokes the token on the server.
+- **Every** admin page and server action re-checks the session with Supabase Auth and the staff role (`requireStaff` / `requireAdmin`). Hiding menu items is only cosmetic.
+- All admin database/storage calls run **as the signed-in person** (their own token), so Postgres Row Level Security is the real boundary. The service-role key is not used by the admin at all.
+- Admins cannot edit what a client submitted (column-level permissions), and nobody can create or change roles through the website or API: roles change only by SQL in your Supabase project.
+- Server-side validation (Zod) on every input; image paths are restricted (no URLs, no `..`); uploads get random server-chosen filenames; slugs are unique; edits use optimistic concurrency (a stale form cannot silently overwrite a newer save).
+- Server actions are protected by Next.js' built-in same-origin check and `SameSite=Lax` cookies.
+
+### Known limitations
+- **Changing a published slug breaks its old URL**; no redirect is created (the form asks you to confirm).
+- Project galleries and the objectives/challenges/solutions fields exist in the database but have no editor yet.
+- An uploaded file whose registration step fails (for example the browser closes mid-upload) can remain in storage unlisted. Delete it in the Supabase Storage page.
+- The admin interface is in English; the content you edit is in EN/FR/AR.
+- The full-page loading screen was removed in Stage 2 so unknown pages return real 404s.
 
 ## First administrator (for the upcoming admin phase)
 Supabase -> Authentication -> Users -> Add user (email + password; no public sign-up exists). Then in the SQL Editor:

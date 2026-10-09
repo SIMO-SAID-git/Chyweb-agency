@@ -1,6 +1,7 @@
 import { pageMeta } from '@/lib/seo';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { PageHeader } from '@/components/Cards';
+import { getGeneralFaqs } from '@/lib/content';
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const a = await getTranslations({ locale, namespace: 'faq' });
@@ -10,7 +11,8 @@ export async function generateMetadata({ params: { locale } }: { params: { local
 export default async function Faq({ params: { locale } }: { params: { locale: string } }) {
   setRequestLocale(locale);
   const f = await getTranslations('faq');
-  const items = f.raw('items') as { q: string; a: string }[];
+  const managed = await getGeneralFaqs(locale);
+  const items = managed.length ? managed : (f.raw('items') as { q: string; a: string }[]);
   return (
     <>
       <PageHeader title={f('title')} />

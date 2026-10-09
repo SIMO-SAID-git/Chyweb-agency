@@ -8,7 +8,8 @@
   "lint": "next lint",
   "typecheck": "tsc --noEmit",
   "verify:supabase": "node scripts/verify-supabase.mjs",
-  "import:content": "node scripts/import-content.mjs"
+  "import:content": "node scripts/import-content.mjs",
+  "verify:admin": "node scripts/verify-admin.mjs"
  },
  "dependencies": {
   "next": "14.2.35",
