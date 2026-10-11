@@ -12,19 +12,19 @@
   "verify:admin": "node scripts/verify-admin.mjs"
  },
  "dependencies": {
-  "next": "14.2.35",
+  "next": "15.5.27",
   "next-intl": "^3.26.0",
-  "react": "^18.3.1",
-  "react-dom": "^18.3.1",
+  "react": "19.3.0",
+  "react-dom": "19.3.0",
   "zod": "3.23.8"
  },
  "devDependencies": {
   "@types/node": "^20",
-  "@types/react": "^18",
-  "@types/react-dom": "^18",
+  "@types/react": "19.3.0",
+  "@types/react-dom": "19.3.0",
   "autoprefixer": "^10",
   "eslint": "^8",
-  "eslint-config-next": "14.2.35",
+  "eslint-config-next": "15.5.27",
   "postcss": "^8",
   "tailwindcss": "^3.4.0",
   "typescript": "^5.5.0"
