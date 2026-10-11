@@ -19,7 +19,7 @@ export default async function EditProject({ params: { id }, searchParams }: { pa
   if (!isNew && !row) notFound();
   return (
     <>
-      <PageTitle title={isNew ? 'New project' : `Edit: ${row?.title?.en}`} action={<Link href="/admin/projects" className="text-sm text-muted hover:text-cyan">← All projects</Link>} />
+      <PageTitle title={isNew ? 'New project' : `Edit: ${row?.title?.en}`} action={<span className="flex gap-4">{!isNew && <Link href={`/admin/preview/projects/${id}`} className="text-sm text-cyan">Preview</Link>}<Link href="/admin/projects" className="text-sm text-muted hover:text-cyan">← All projects</Link></span>} />
       <Flash ok={searchParams.ok} err={searchParams.err} />
       <div className="max-w-3xl">
         <AdminForm action={saveProject} submit={isNew ? 'Create project' : 'Save changes'}>
@@ -37,6 +37,8 @@ export default async function EditProject({ params: { id }, searchParams }: { pa
           </div>
           <datalist id="media-paths">{media.map((m) => <option key={m.path} value={m.path} />)}</datalist>
           <LocalizedInput name="thumbnail_alt" label="Image description (accessibility)" values={row?.thumbnail_alt ?? {}} />
+                    <LocalizedInput name="seo_title" label="Search-engine title (optional)" values={row?.seo_title ?? {}} hint="Up to 70 characters. Shown in Google results and browser tabs. Falls back to the title." />
+          <LocalizedInput name="seo_description" label="Search-engine description (optional)" values={row?.seo_description ?? {}} rows={2} hint="Up to 200 characters. Falls back to the description." />
           <fieldset className="rounded-xl border p-4"><legend className="px-2 text-sm font-medium">Related services</legend><LinkBoxes items={services.map((x) => ({ id: x.id, label: x.title?.en }))} selected={links} /></fieldset>
           <Check name="is_concept" label="Concept project (shows the “Concept project” label and notice)" defaultChecked={isNew ? true : row?.is_concept} hint="Untick ONLY for real, delivered client work you may show publicly." />
           {!isNew && row?.published && <Check name="confirm_slug" label="I understand that changing the slug breaks the old URL" />}

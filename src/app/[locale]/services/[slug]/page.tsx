@@ -16,7 +16,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params: { locale, slug } }: Props) {
   const s = await getService(slug, locale);
   if (!s) notFound();
-  return pageMeta(locale, `/services/${slug}`, s.title, s.description);
+  return pageMeta(locale, `/services/${slug}`, s.seoTitle || s.title, s.seoDescription || s.description);
 }
 export default async function ServicePage({ params: { locale, slug } }: Props) {
   setRequestLocale(locale);

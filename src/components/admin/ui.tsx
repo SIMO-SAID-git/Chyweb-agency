@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { logout } from '@/app/admin/login/actions';
-import { ConfirmSubmit, inputCls } from './forms';
+import { ConfirmSubmit, PendingButton, inputCls } from './forms';
 import type { Staff } from '@/lib/admin/session';
 
 export function AdminNav({ staff }: { staff: Staff }) {
@@ -41,12 +41,12 @@ export const Check = ({ label, name, defaultChecked, hint }: { label: string; na
 export const Table = ({ head, children }: { head: string[]; children: ReactNode }) => (
   <div className="overflow-x-auto rounded-xl border"><table className="w-full text-left text-sm"><thead className="border-b bg-white/5 text-xs uppercase tracking-wider text-muted"><tr>{head.map((h) => <th key={h} className="px-4 py-3 font-medium">{h}</th>)}</tr></thead><tbody className="divide-y">{children}</tbody></table></div>
 );
-import { setPublished } from '@/app/admin/actions';
+import { moveItem, setPublished } from '@/app/admin/actions';
 export function PublishToggle({ table, id, published }: { table: string; id: string; published: boolean }) {
   return (
     <form action={setPublished} className="inline">
       <input type="hidden" name="table" value={table} /><input type="hidden" name="id" value={id} /><input type="hidden" name="value" value={published ? '0' : '1'} />
-      <button type="submit" className="rounded-full border px-3 py-1 text-xs hover:border-cyan hover:text-cyan">{published ? 'Unpublish' : 'Publish'}</button>
+      <PendingButton className="rounded-full border px-3 py-1 text-xs hover:border-cyan hover:text-cyan">{published ? 'Unpublish' : 'Publish'}</PendingButton>
     </form>
   );
 }
@@ -54,3 +54,18 @@ export const LinkBoxes = ({ items, selected, name = 'link' }: { items: { id: str
   <div className="grid gap-2 sm:grid-cols-2">{items.length === 0 ? <p className="text-sm text-muted">Nothing to link yet.</p> : items.map((i) => (
     <label key={i.id} className="flex items-center gap-2 text-sm"><input type="checkbox" name={name} value={i.id} defaultChecked={selected.includes(i.id)} className="h-4 w-4 accent-[#00E0E0]" />{i.label}</label>))}</div>
 );
+
+export function MoveButtons({ table, id, group }: { table: string; id: string; group?: string | null }) {
+  const cls = 'rounded border px-1.5 py-0.5 text-xs hover:border-cyan hover:text-cyan';
+  return (
+    <form action={moveItem} className="inline-flex gap-1">
+      <input type="hidden" name="table" value={table} /><input type="hidden" name="id" value={id} /><input type="hidden" name="group" value={group ?? ''} />
+      <PendingButton name="dir" value="up" aria-label="Move up" className={cls}>↑</PendingButton><PendingButton name="dir" value="down" aria-label="Move down" className={cls}>↓</PendingButton>
+    </form>
+  );
+}
+/** Shows whether French / Arabic text exists for the given fields (a missing one falls back to English on the website). */
+export function LangDots({ row, fields }: { row: Record<string, any>; fields: string[] }) { // eslint-disable-line
+  const has = (l: string) => fields.every((f) => String(row[f]?.[l] ?? '').trim());
+  return <span className="ms-2 inline-flex gap-1 align-middle text-[10px]">{(['fr', 'ar'] as const).map((l) => <span key={l} title={has(l) ? `${l.toUpperCase()} translation complete` : `${l.toUpperCase()} missing: English is shown instead`} className={`rounded px-1.5 py-0.5 ${has(l) ? 'bg-cyan/15 text-cyan' : 'bg-amber-400/15 text-amber-300'}`}>{l.toUpperCase()}{has(l) ? ' ✓' : ' –'}</span>)}</span>;
+}

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ConfirmSubmit, inputCls } from '@/components/admin/forms';
+import { ConfirmSubmit, PendingButton, inputCls } from '@/components/admin/forms';
 import { Flash, PageTitle } from '@/components/admin/ui';
 import { enc, sb } from '@/lib/admin/db';
 import { STATUSES } from '@/lib/admin/inquiry';
@@ -31,10 +31,10 @@ export default async function Inquiry({ params: { id }, searchParams }: { params
         </section>
         <aside className="space-y-6">
           <form action={setInquiryStatus} className="rounded-xl border p-4"><input type="hidden" name="id" value={id} /><label htmlFor="st" className="mb-2 block text-sm font-medium">Status</label>
-            <div className="flex gap-2"><select id="st" name="status" defaultValue={row.status} className={inputCls}>{STATUSES.map(([val, l]) => <option key={val} value={val}>{l}</option>)}</select><button className="rounded-full bg-cyan px-4 py-2 text-sm font-semibold text-navy">Save</button></div></form>
-          <form action={setInquiryRead} className="rounded-xl border p-4"><input type="hidden" name="id" value={id} /><input type="hidden" name="value" value="0" /><button className="text-sm text-cyan">Mark as unread</button></form>
+            <div className="flex gap-2"><select id="st" name="status" defaultValue={row.status} className={inputCls}>{STATUSES.map(([val, l]) => <option key={val} value={val}>{l}</option>)}</select><PendingButton className="rounded-full bg-cyan px-4 py-2 text-sm font-semibold text-navy">Save</PendingButton></div></form>
+          <form action={setInquiryRead} className="rounded-xl border p-4"><input type="hidden" name="id" value={id} /><input type="hidden" name="value" value="0" /><PendingButton className="text-sm text-cyan">Mark as unread</PendingButton></form>
           <section className="rounded-xl border p-4"><h2 className="mb-3 text-sm font-medium">Private notes <span className="text-xs font-normal text-muted">(never public)</span></h2>
-            <form action={addNote} className="mb-4 space-y-2"><input type="hidden" name="id" value={id} /><textarea name="note" rows={3} required maxLength={4000} aria-label="New note" className={inputCls} /><button className="rounded-full border px-4 py-1.5 text-xs hover:border-cyan">Add note</button></form>
+            <form action={addNote} className="mb-4 space-y-2"><input type="hidden" name="id" value={id} /><textarea name="note" rows={3} required maxLength={4000} aria-label="New note" className={inputCls} /><PendingButton className="rounded-full border px-4 py-1.5 text-xs hover:border-cyan">Add note</PendingButton></form>
             {notes.length === 0 ? <p className="text-sm text-muted">No notes yet.</p> : <ul className="space-y-3">{notes.map((n) => <li key={n.id} className="rounded-lg bg-white/5 p-3 text-sm"><p className="whitespace-pre-wrap">{n.note}</p><p className="mt-1 text-xs text-muted">{n.profiles?.name ?? n.profiles?.email ?? 'admin'} · {new Date(n.created_at).toLocaleString('en-GB')}</p></li>)}</ul>}</section>
           <form action={deleteInquiry} className="rounded-xl border border-red-400/20 p-4"><input type="hidden" name="id" value={id} /><p className="mb-3 text-xs text-muted">Prefer status “Archived”. Deleting is permanent and also deletes the notes.</p><ConfirmSubmit label="Delete inquiry" message="Permanently delete this inquiry and its notes?" /></form>
         </aside>

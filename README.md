@@ -83,7 +83,7 @@ Sign in at **`https://YOUR-DOMAIN/admin/login`** (never linked from the public s
 4. No new environment variables are needed. The admin uses the same public URL + publishable key and each person's own login; it never uses the service-role key.
 5. Verify against YOUR project (read-only by default):
    `export VERIFY_ADMIN_EMAIL=... VERIFY_ADMIN_PASSWORD=...` then `npm run verify:admin`.
-   Add `-- --write` to also test create/publish/unpublish/approve/upload with temporary records named `zz-verify-...` that the script deletes itself (your real content is never touched). Optional: `VERIFY_EDITOR_*` and `VERIFY_PLAIN_*` (an Auth user with no profile) test those roles.
+   Add `-- --write` to also test create/publish/unpublish/approve/upload with temporary records named `zz-verify-...` and ONE temporary Storage object (`media/general/2000/<random>.png`) that the script creates and deletes itself. Each database delete must match exactly one row, and after deleting the object it checks three ways that the file is really gone (authenticated lookup, bucket listing, public URL); a Storage `200` alone is not accepted. Your real content is never touched. Optional: `VERIFY_EDITOR_*` and `VERIFY_PLAIN_*` (an Auth user with no profile) test those roles.
 
 ### What you can manage
 | Area | Can do |
@@ -101,6 +101,16 @@ Language tabs (English / Français / العربية) are on every multilingual f
 ### How a change reaches the public website
 Every save/publish/unpublish/delete calls `revalidateContent()` (`src/lib/admin/revalidate.ts`): it invalidates the `content` data cache **and** re-renders the affected pages in all three languages (home, services, portfolio, FAQ, the item's own pages, sitemap). No redeploy is needed. Measured behaviour: right after a change, the very first visit to a page may still be served the previous version for a moment while Next.js rebuilds it in the background (about 0.3 s in tests); the next visit is the new version. Public content is also refreshed automatically every `CONTENT_REVALIDATE_SECONDS` (default 60).
 
+
+### Stage 4 additions
+- **Preview** (`/admin/preview/services|projects/<id>?lang=en|fr|ar`, linked from the lists and editors): shows drafts too, in any language (RTL for Arabic), exactly as the website would resolve the text (language, else English), warns about missing translations, and shows a search-result preview. It previews the *content*; it is not the public page layout. Staff only.
+- **Search-engine title/description** per language for services and projects (database columns `seo_title`, `seo_description`; no migration needed). If a language has none, that page uses its own title/description (never another language's SEO text).
+- **Order:** up/down buttons on services, projects and FAQs (FAQs reorder within their own group). Numbers are renumbered 10, 20, 30… automatically.
+- **Translation indicators:** `FR ✓` / `AR –` badges in the lists show which languages are complete.
+- **No accidental double submissions:** every action button is disabled while it runs, and a repeated identical note is ignored.
+- **Safer uploads:** the server checks the real file signature (PNG/JPEG/WebP/AVIF), not just the declared type. A fake or half-finished upload is removed from Storage automatically. Deleting a file checks that Storage really removed the object before the library entry is deleted.
+- **Not included** (needs your decision, see the report): pricing-package editor, project galleries/case-study fields, URL redirects for changed slugs.
+
 ### Security model
 - Login = Supabase Auth (email + password). Tokens are stored only in **httpOnly cookies** scoped to `/admin`; the browser's JavaScript never sees them. Sessions renew automatically; logout revokes the token on the server.
 - **Every** admin page and server action re-checks the session with Supabase Auth and the staff role (`requireStaff` / `requireAdmin`). Hiding menu items is only cosmetic.
@@ -112,7 +122,7 @@ Every save/publish/unpublish/delete calls `revalidateContent()` (`src/lib/admin/
 ### Known limitations
 - **Changing a published slug breaks its old URL**; no redirect is created (the form asks you to confirm).
 - Project galleries and the objectives/challenges/solutions fields exist in the database but have no editor yet.
-- An uploaded file whose registration step fails (for example the browser closes mid-upload) can remain in storage unlisted. Delete it in the Supabase Storage page.
+- If the browser is closed in the middle of an upload (before the page can clean up), an unlisted file can remain in Storage. Delete it in the Supabase Storage page.
 - The admin interface is in English; the content you edit is in EN/FR/AR.
 - The full-page loading screen was removed in Stage 2 so unknown pages return real 404s.
 

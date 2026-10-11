@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Badge, Empty, Flash, PageTitle, PublishToggle, Table } from '@/components/admin/ui';
+import { PendingButton } from '@/components/admin/forms';
 import { sb } from '@/lib/admin/db';
 import { requireStaff } from '@/lib/admin/session';
 import { setApproved } from './actions';
@@ -15,7 +16,7 @@ export default async function Testimonials({ searchParams }: { searchParams: { o
       {rows.length === 0 ? <Empty>No testimonials yet. The website shows an honest “feedback will appear here” message until you add real ones.</Empty> : <Table head={['Client', 'Rating', 'Approved', 'Public', '']}>
         {rows.map((r) => <tr key={r.id}><td className="px-4 py-3 font-medium">{r.client_name}<span className="block text-xs font-normal text-muted">{r.client_role}{r.is_demo ? ' · demo' : ''}</span></td><td className="px-4 py-3">{r.rating ?? '-'}</td><td className="px-4 py-3"><Badge on={r.approved} yes="Approved" no="Pending" /></td><td className="px-4 py-3"><Badge on={r.published} yes="Public" no="Hidden" /></td>
           <td className="flex flex-wrap gap-2 px-4 py-3"><Link href={`/admin/testimonials/${r.id}`} className="rounded-full border px-3 py-1 text-xs hover:border-cyan hover:text-cyan">Edit</Link>
-            <form action={setApproved} className="inline"><input type="hidden" name="id" value={r.id} /><input type="hidden" name="value" value={r.approved ? '0' : '1'} /><button className="rounded-full border px-3 py-1 text-xs hover:border-cyan hover:text-cyan">{r.approved ? 'Reject' : 'Approve'}</button></form>
+            <form action={setApproved} className="inline"><input type="hidden" name="id" value={r.id} /><input type="hidden" name="value" value={r.approved ? '0' : '1'} /><PendingButton className="rounded-full border px-3 py-1 text-xs hover:border-cyan hover:text-cyan">{r.approved ? 'Reject' : 'Approve'}</PendingButton></form>
             {r.approved && <PublishToggle table="testimonials" id={r.id} published={r.published} />}</td></tr>)}</Table>}
     </>
   );

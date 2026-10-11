@@ -1,5 +1,5 @@
 'use client';
-import { useState, type ReactNode } from 'react';
+import { useState, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import type { FormState } from '@/lib/admin/form';
 
@@ -50,4 +50,10 @@ export function LocalizedInput({ name, label, values = {}, rows = 1, required, h
       {hint && <p className="mt-2 text-xs text-muted">{hint}</p>}
     </fieldset>
   );
+}
+
+/** Submit button for plain server-action forms: disabled while the request is running, so a double-click cannot submit twice. */
+export function PendingButton({ children, className = '', ...p }: ButtonHTMLAttributes<HTMLButtonElement>) {
+  const { pending } = useFormStatus();
+  return <button type="submit" {...p} disabled={pending || p.disabled} className={`${className} disabled:opacity-50`}>{children}</button>;
 }

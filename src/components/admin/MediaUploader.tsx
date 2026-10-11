@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { createUploadUrl, registerMedia } from '@/app/admin/media/actions';
+import { createUploadUrl, discardUpload, registerMedia } from '@/app/admin/media/actions';
 import { inputCls } from './forms';
 const OK = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'];
 export default function MediaUploader() {
@@ -13,16 +13,21 @@ export default function MediaUploader() {
     if (!OK.includes(file.type)) return setMsg({ t: 'err', s: 'Only JPEG, PNG, WebP or AVIF images are allowed.' });
     if (file.size > 5 * 1024 * 1024) return setMsg({ t: 'err', s: 'The image is larger than 5 MB.' });
     setBusy(true); setMsg(null);
+    let uploaded = '';
     try {
       const u = await createUploadUrl({ folder: String(f.get('folder')), mime: file.type, size: file.size });
       if (!u.ok) throw new Error(u.error);
+      uploaded = u.path;
       const put = await fetch(u.url, { method: 'PUT', headers: { 'Content-Type': file.type }, body: file });
       if (!put.ok) throw new Error(put.status === 413 ? 'The image is too large.' : 'Upload failed. Try again.');
       const alt = Object.fromEntries((['en', 'fr', 'ar'] as const).map((l) => [l, String(f.get(`alt_${l}`) ?? '').trim()]).filter(([, v]) => v));
       const r = await registerMedia({ path: u.path, alt });
       if (!r.ok) throw new Error(r.error);
-      setMsg({ t: 'ok', s: `Uploaded. Path: ${r.path}` }); (e.target as HTMLFormElement).reset(); router.refresh();
-    } catch (err) { setMsg({ t: 'err', s: (err as Error).message }); } finally { setBusy(false); }
+      uploaded = ''; setMsg({ t: 'ok', s: `Uploaded. Path: ${r.path}` }); (e.target as HTMLFormElement).reset(); router.refresh();
+    } catch (err) {
+      if (uploaded) await discardUpload({ path: uploaded }).catch(() => undefined); // never leave a half-finished upload behind
+      setMsg({ t: 'err', s: (err as Error).message });
+    } finally { setBusy(false); }
   }
   return (
     <form onSubmit={onSubmit} className="space-y-4 rounded-xl border p-5">

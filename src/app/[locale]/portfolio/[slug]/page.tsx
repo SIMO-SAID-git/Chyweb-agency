@@ -16,7 +16,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params: { locale, slug } }: Props) {
   const p = await getProject(slug, locale);
   if (!p) notFound();
-  return pageMeta(locale, `/portfolio/${slug}`, p.title, p.description);
+  return pageMeta(locale, `/portfolio/${slug}`, p.seoTitle || p.title, p.seoDescription || p.description);
 }
 export default async function Project({ params: { locale, slug } }: Props) {
   setRequestLocale(locale);

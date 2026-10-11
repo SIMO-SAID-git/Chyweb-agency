@@ -20,7 +20,7 @@ export default async function EditService({ params: { id }, searchParams }: { pa
   const features = Object.fromEntries(Object.entries((row?.features ?? {}) as Record<string, string[]>).map(([l, v]) => [l, v.join('\n')]));
   return (
     <>
-      <PageTitle title={isNew ? 'New service' : `Edit: ${row?.title?.en}`} action={<Link href="/admin/services" className="text-sm text-muted hover:text-cyan">← All services</Link>} />
+      <PageTitle title={isNew ? 'New service' : `Edit: ${row?.title?.en}`} action={<span className="flex gap-4">{!isNew && <Link href={`/admin/preview/services/${id}`} className="text-sm text-cyan">Preview</Link>}<Link href="/admin/services" className="text-sm text-muted hover:text-cyan">← All services</Link></span>} />
       <Flash ok={searchParams.ok} err={searchParams.err} />
       <div className="max-w-3xl">
         <AdminForm action={saveService} submit={isNew ? 'Create service' : 'Save changes'}>
@@ -38,6 +38,8 @@ export default async function EditService({ params: { id }, searchParams }: { pa
           </div>
           <datalist id="media-paths">{media.map((m) => <option key={m.path} value={m.path} />)}</datalist>
           <LocalizedInput name="image_alt" label="Image description (accessibility)" values={row?.image_alt ?? {}} />
+                    <LocalizedInput name="seo_title" label="Search-engine title (optional)" values={row?.seo_title ?? {}} hint="Up to 70 characters. Shown in Google results and browser tabs. Falls back to the title." />
+          <LocalizedInput name="seo_description" label="Search-engine description (optional)" values={row?.seo_description ?? {}} rows={2} hint="Up to 200 characters. Falls back to the description." />
           <fieldset className="rounded-xl border p-4"><legend className="px-2 text-sm font-medium">Related projects</legend><LinkBoxes items={projects.map((p) => ({ id: p.id, label: p.title?.en }))} selected={links} /></fieldset>
           {!isNew && row?.published && <Check name="confirm_slug" label="I understand that changing the slug breaks the old URL" />}
           <Check name="published" label="Published (visible on the public website)" defaultChecked={row?.published} />

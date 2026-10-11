@@ -19,6 +19,7 @@ type Row = Record<string, any>;
 
 // Translation policy: the requested language if it has a non-empty value, otherwise English. Never another language.
 const pick = (v: Row | null | undefined, loc: string): string => (v?.[loc] || v?.en || '') as string;
+const own = (v: Row | null | undefined, loc: string): string => ((v?.[loc] as string) || '').trim(); // NO cross-language fallback (used for SEO text)
 const list = (v: Row | null | undefined, loc: string): string[] => (v?.[loc]?.length ? v[loc] : v?.en) ?? [];
 export const mediaUrl = (p?: string | null) => (!p ? '' : p.startsWith('/') || /^https?:\/\//.test(p) ? p : `${URL_}/storage/v1/object/public/media/${p}`);
 
@@ -38,7 +39,7 @@ async function rest(path: string, tag: string): Promise<Row[] | null> {
   }
 }
 
-const SERVICES_Q = 'services?select=key,slug,title,description,lead,features,image,image_alt,sort_order,faqs(question,answer,sort_order),service_projects(sort_order,projects(slug))&order=sort_order.asc&faqs.order=sort_order.asc&service_projects.order=sort_order.asc';
+const SERVICES_Q = 'services?select=key,slug,title,description,lead,features,image,image_alt,seo_title,seo_description,sort_order,faqs(question,answer,sort_order),service_projects(sort_order,projects(slug))&order=sort_order.asc&faqs.order=sort_order.asc&service_projects.order=sort_order.asc';
 export async function getServices(loc: string): Promise<Service[]> {
   const rows = await rest(SERVICES_Q, 'services');
   if (!rows) return staticServices(loc);
@@ -47,17 +48,18 @@ export async function getServices(loc: string): Promise<Service[]> {
     features: list(r.features, loc), faqs: (r.faqs ?? []).map((f: Row) => ({ q: pick(f.question, loc), a: pick(f.answer, loc) })),
     image: mediaUrl(r.image), alt: pick(r.image_alt, loc) || pick(r.title, loc),
     relatedSlugs: (r.service_projects ?? []).map((x: Row) => x.projects?.slug).filter(Boolean),
+    seoTitle: own(r.seo_title, loc), seoDescription: own(r.seo_description, loc), // empty => the page uses that language's own title/description
   }));
 }
 export const getService = async (slug: string, loc: string) => (await getServices(loc)).find((s) => s.slug === slug) ?? null;
 
-const PROJECTS_Q = 'projects?select=slug,category,category_label,title,description,thumbnail,thumbnail_alt,technologies,is_concept,sort_order&order=sort_order.asc';
+const PROJECTS_Q = 'projects?select=slug,category,category_label,title,description,thumbnail,thumbnail_alt,technologies,is_concept,seo_title,seo_description,sort_order&order=sort_order.asc';
 export async function getProjects(loc: string): Promise<Project[]> {
   const rows = await rest(PROJECTS_Q, 'projects');
   if (!rows) return staticProjects(loc);
   return rows.map((r) => ({
     slug: r.slug, category: r.category, categoryLabel: pick(r.category_label, loc), title: pick(r.title, loc), description: pick(r.description, loc),
-    image: mediaUrl(r.thumbnail), alt: pick(r.thumbnail_alt, loc) || pick(r.title, loc), tech: r.technologies ?? [], isConcept: r.is_concept !== false,
+    image: mediaUrl(r.thumbnail), alt: pick(r.thumbnail_alt, loc) || pick(r.title, loc), tech: r.technologies ?? [], isConcept: r.is_concept !== false, seoTitle: own(r.seo_title, loc), seoDescription: own(r.seo_description, loc), // empty => the page uses that language's own title/description
   }));
 }
 export const getProject = async (slug: string, loc: string) => (await getProjects(loc)).find((p) => p.slug === slug) ?? null;

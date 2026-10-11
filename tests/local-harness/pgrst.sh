@@ -1,0 +1,1 @@
+(PGRST_DB_URI='postgresql://authenticator@/postgres?host=/tmp/pgdata' PGRST_DB_SCHEMAS=public PGRST_DB_ANON_ROLE=anon PGRST_JWT_SECRET='super-secret-jwt-token-with-at-least-32-characters-long' PGRST_SERVER_PORT=3002 PGRST_DB_POOL=4 PGRST_LOG_LEVEL=warn setsid nohup /tmp/postgrest >/tmp/pgrst3.log 2>&1 &)

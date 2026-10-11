@@ -13,19 +13,20 @@ const schema = z.object({
   tech: z.string().max(400, 'Technologies: too long'),
   thumbnail: z.string().regex(pathRe, 'Image: use a media path (e.g. projects/…) or a /images/… file').or(z.literal('')),
   thumbnail_alt: zloc(200, false, 'Image description'), sort: z.coerce.number().int().min(0).max(9999),
+  seo_title: zloc(70, false, 'Search title'), seo_description: zloc(200, false, 'Search description'),
 });
 export async function saveProject(_: FormState, fd: FormData): Promise<FormState> {
   const s = await requireStaff();
   const id = str(fd, 'id');
   if (id !== 'new' && !uuid.safeParse(id).success) return { error: 'Invalid record.' };
-  const p = schema.safeParse({ slug: str(fd, 'slug'), category: str(fd, 'category'), category_label: loc(fd, 'category_label'), title: loc(fd, 'title'), description: loc(fd, 'description'), tech: str(fd, 'tech'), thumbnail: str(fd, 'thumbnail'), thumbnail_alt: loc(fd, 'thumbnail_alt'), sort: str(fd, 'sort') || '0' });
+  const p = schema.safeParse({ slug: str(fd, 'slug'), category: str(fd, 'category'), category_label: loc(fd, 'category_label'), title: loc(fd, 'title'), description: loc(fd, 'description'), tech: str(fd, 'tech'), thumbnail: str(fd, 'thumbnail'), thumbnail_alt: loc(fd, 'thumbnail_alt'), sort: str(fd, 'sort') || '0', seo_title: loc(fd, 'seo_title'), seo_description: loc(fd, 'seo_description') });
   if (!p.success) return { error: zmsg(p.error) };
   const d = p.data, origSlug = str(fd, 'orig_slug');
   const tech = Array.from(new Set(d.tech.split(',').map((x) => x.trim()).filter(Boolean)));
   if (tech.length > 12 || tech.some((x) => x.length > 40)) return { error: 'Technologies: at most 12 items, each up to 40 characters.' };
   if (id !== 'new' && origSlug && origSlug !== d.slug && str(fd, 'orig_published') === '1' && !bool(fd, 'confirm_slug'))
     return { error: 'You changed the slug of a published project, so its old URL will stop working (no redirect is created). Tick the confirmation box to continue.' };
-  const payload = { slug: d.slug, category: d.category, category_label: d.category_label, title: d.title, description: d.description, technologies: tech, thumbnail: d.thumbnail || null, thumbnail_alt: orNull(d.thumbnail_alt), is_concept: bool(fd, 'is_concept'), sort_order: d.sort, published: bool(fd, 'published') };
+  const payload = { slug: d.slug, category: d.category, category_label: d.category_label, title: d.title, description: d.description, technologies: tech, thumbnail: d.thumbnail || null, thumbnail_alt: orNull(d.thumbnail_alt), is_concept: bool(fd, 'is_concept'), sort_order: d.sort, seo_title: orNull(d.seo_title), seo_description: orNull(d.seo_description), published: bool(fd, 'published') };
   let target = '';
   try {
     const row = await save(s, 'projects', id, payload, str(fd, 'updated_at'));
